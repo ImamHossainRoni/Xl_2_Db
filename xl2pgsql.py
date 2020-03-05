@@ -34,6 +34,12 @@ class Xl2Db:
                 except Exception as e:
                     print(e)
 
+    def show_data(self):
+        query = select([table for name, table in self.get_tables()])
+        row_data = self.engine.execute(query)
+        result = [list(each) for each in row_data]
+        print(result)
+
 
 def main():
     engine = create_engine('postgresql://postgres:test@localhost/exam_test', echo=True)
@@ -43,6 +49,7 @@ def main():
     file_src = "data/friend_list.xlsx"
     xl_to_db = Xl2Db(engine, metadata, file_src)
     xl_to_db.process()
+    xl_to_db.show_data()
 
 
 if __name__ == '__main__':
