@@ -2,6 +2,16 @@ import xlrd
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.sql import select, insert, update
 
+# Ownership information
+__author__ = 'Md. Imam Hossain Roni'
+__copyright__ = "Copyright 2020, Roni"
+__credits__ = ["Roni"]
+__license__ = "GPL"
+__version__ = "0.0.1"
+__maintainer__ = "Roni"
+__email__ = "imamhossainroni95@gmail.com"
+__status__ = "Development"
+
 
 class Xl2Db:
     def __init__(self, engine, metadata, file_src):
