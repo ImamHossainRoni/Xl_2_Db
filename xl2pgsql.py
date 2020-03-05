@@ -42,7 +42,7 @@ class Xl2Db:
 
 
 def main():
-    engine = create_engine('postgresql://postgres:test@localhost/exam_test', echo=True)
+    engine = create_engine('postgresql://postgres:test@localhost/exam_test', echo=False)
     metadata = MetaData()
     metadata.bind = engine
     metadata.reflect(engine)
