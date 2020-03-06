@@ -21,16 +21,19 @@ class Xl2Db:
 
     @property
     def raw_data_from_xl(self):
+        # Read data from xl sheet
         xl_file = self.file_src
         _book = xlrd.open_workbook(xl_file)
         sheet_data = _book.sheet_by_name("source")
         return sheet_data
 
     def get_tables(self):
+        # Returns table name that you have already created for this process
         tbl_obj = self.metadata.tables.items()
         return tbl_obj
 
     def process(self):
+        # Prepare data and insert into PostgreSQL database using SQLAlchemy orm insert expression.
         for r in range(1, self.raw_data_from_xl.nrows):
             name = self.raw_data_from_xl.cell(r, 0).value
             email = self.raw_data_from_xl.cell(r, 1).value
@@ -45,6 +48,7 @@ class Xl2Db:
                     print(e)
 
     def show_data(self):
+        # It will display using print function from PostgreSQL using SQLAlchemy select expression.
         query = select([table for name, table in self.get_tables()])
         row_data = self.engine.execute(query)
         result = [list(each) for each in row_data]
@@ -52,7 +56,7 @@ class Xl2Db:
 
 
 def main():
-    engine = create_engine('postgresql://postgres:test@localhost/exam_test', echo=False)
+    engine = create_engine('postgresql://postgres:test@localhost/exam_test', echo=False) # PostgreSQL dialects for SQLAlchemy
     metadata = MetaData()
     metadata.bind = engine
     metadata.reflect(engine)
